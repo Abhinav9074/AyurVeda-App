@@ -55,12 +55,20 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CommonButton(text: 'Register Now'),
+                    child: CommonButton(
+                      text: 'Register Now',
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/register',
+                        );
+                      },
+                    ),
                   )
                 ],
               );
             } else {
-              return Center(
+              return const Center(
                 child: Text('Error'),
               );
             }

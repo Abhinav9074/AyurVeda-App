@@ -8,4 +8,5 @@ class ApiConfig {
   static const String login = '/Login';
   static const String patientList = '/PatientList';
   static const String treatmentList = '/TreatmentList';
+  static const String branchList = '/BranchList';
 }

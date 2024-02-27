@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:machine_test1/domain/common/constants/api_config.dart';
 import 'package:machine_test1/domain/common/constants/shared_preferences.dart';
+import 'package:machine_test1/domain/models/branch_model.dart';
 import 'package:machine_test1/domain/models/patient_model.dart';
 
 class ApiServices {
@@ -35,12 +36,30 @@ class ApiServices {
             'Bearer ${SharedPreferenceFunction().sharedInstance.getString('authToken')}'
       });
       final allData = await json.decode(val.body);
-      log(allData['patient'][0]['name']);
+
       return allData['patient'].map((json) => PatientDetails.fromJson(json)).toList();
     } catch (e) {
       log('error');
       log(e.toString());
       throw Exception(e);
+    }
+  }
+
+  //Get Branch List
+
+  Future<List<dynamic>>getBranchList()async{
+    try{
+      final value = await http
+          .get(Uri.parse(ApiConfig.baseUrl + ApiConfig.branchList), headers: {
+        'Authorization':
+            'Bearer ${SharedPreferenceFunction().sharedInstance.getString('authToken')}'
+      });
+      final allData = await json.decode(value.body);
+      log(value.body);
+      return allData['branches'].map((json)=>BranchModel.fromJson(json)).toList();
+    }catch(e){
+      log('error $e');
+      throw(Exception(e));
     }
   }
 }
