@@ -1,31 +1,26 @@
-// import 'dart:developer';
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
+import 'dart:developer';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:machine_test1/domain/common/constants/api_config.dart';
+import 'package:machine_test1/domain/common/constants/shared_preferences.dart';
 
-// class ApiServices {
-//   Future<void> login() async {
-//     try {
-//       final val = await http.post(
-//           Uri.parse('https://flutter-amr.noviindus.in/api/Login'),
-//           body: {'username': 'test_user', 'password': '12345678'});
+class ApiServices {
 
-//       log('${val.body}');
-//       final allData = await json.decode(val.body);
-//       log('token is ');
-//       log(allData['token']);
-
-// final list = await http.get(
-//   Uri.parse('https://flutter-amr.noviindus.in/api/PatientList'),
-//   headers: {
-//     'Authorization':'Bearer ${allData['token']}'
-//   }
-// );
-
-
-//       log(list.body);
-//     } catch (e) {
-//       log('error');
-//       log(e.toString());
-//     }
-//   }
-// }
+  //Login Function
+  Future<bool> login(String username,String password) async {
+    try {
+      final val = await http.post(
+          Uri.parse(ApiConfig.baseUrl+ApiConfig.login),
+          body: {'username': username, 'password': password});
+      final allData = await json.decode(val.body);
+      log(allData['token']);
+      SharedPreferenceFunction().sharedInstance.setString('authToken', allData['token']);
+      log('shared :: ${SharedPreferenceFunction().sharedInstance.getString('authToken')}');
+      return true;
+    } catch (e) {
+      log('error');
+      log(e.toString());
+      return false;
+    }
+  }
+}
