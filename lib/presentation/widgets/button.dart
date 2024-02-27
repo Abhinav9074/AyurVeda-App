@@ -17,7 +17,7 @@ class CommonButton extends StatelessWidget {
           foregroundColor: MaterialStateProperty.all(Colors.white),
           backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 51, 125, 53)),
           padding:
-              MaterialStateProperty.all(const EdgeInsets.fromLTRB(190, 15, 190, 15)),
+              MaterialStateProperty.all(const EdgeInsets.fromLTRB(130, 15, 130, 15)),
           textStyle:
               MaterialStateProperty.all(MyTextStyle.commonHeadingTextWhite)),
       child: Text(text),
