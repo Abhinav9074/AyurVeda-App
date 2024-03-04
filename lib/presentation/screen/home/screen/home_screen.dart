@@ -6,13 +6,14 @@ import 'package:machine_test1/application/home_bloc/home_state.dart';
 import 'package:machine_test1/domain/models/patient_model.dart';
 import 'package:machine_test1/presentation/screen/home/widgets/patient_tab.dart';
 import 'package:machine_test1/presentation/widgets/button.dart';
+import 'package:machine_test1/presentation/widgets/text_field.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-
+      TextEditingController searchCont = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
@@ -23,7 +24,9 @@ class HomeScreen extends StatelessWidget {
         _refreshController.refreshCompleted();
       },
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.notifications))],
+        ),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeLoadingState) {
@@ -34,6 +37,14 @@ class HomeScreen extends StatelessWidget {
             } else if (state is HomeLoadedState) {
               return Column(
                 children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: CustomTextField(hint: 'Search', textCont: searchCont, obscure: false, text: '')),
+                    ],
+                  ),
+                  
                   Expanded(
                     child: ValueListenableBuilder(
                         valueListenable: state.patientList,

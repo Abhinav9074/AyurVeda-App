@@ -8,12 +8,12 @@ import 'package:machine_test1/presentation/widgets/button.dart';
 import 'package:machine_test1/presentation/widgets/text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+   LoginScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
     TextEditingController emailCont = TextEditingController();
     TextEditingController passCont = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if(state is LoginSuccessState){

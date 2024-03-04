@@ -12,7 +12,7 @@ final routes = {
         child: HomeScreen(),
       ),
   '/splash': (context) => const SplashScreen(),
-  '/login': (context) => const LoginScreen(),
+  '/login': (context) =>  LoginScreen(),
   '/register': (context) => BlocProvider(
     create: (context) => RegistrationBloc(),
     child: RegisterPatient(),
